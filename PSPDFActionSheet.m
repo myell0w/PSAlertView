@@ -21,11 +21,15 @@
 #pragma mark - NSObject
 
 - (id)initWithTitle:(NSString *)title {
-    if ((self = [super initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil])) {
+    return [self initWithTitle:title delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+}
 
+- (id)initWithTitle:(NSString *)title delegate:(id<UIActionSheetDelegate>)delegate cancelButtonTitle:(NSString *)cancelButtonTitle destructiveButtonTitle:(NSString *)destructiveButtonTitle otherButtonTitles:(NSString *)otherButtonTitles, ... {
+    if ((self = [super init])) {
         // Create the blocks storage for handling all button actions
         _blocks = [[NSMutableArray alloc] init];
     }
+
     return self;
 }
 

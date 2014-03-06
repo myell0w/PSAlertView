@@ -385,8 +385,13 @@
                 if (self.buttonFont)
                     buttonFont = self.buttonFont;
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_6_0
-                [button.titleLabel.text drawInRect:CGRectMake(button.frame.origin.x, button.frame.origin.y+10, button.frame.size.width, button.frame.size.height) withFont:buttonFont lineBreakMode:NSLineBreakByClipping alignment:NSTextAlignmentCenter];
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_7_0
+                NSMutableParagraphStyle *paragraphStyle = [NSMutableParagraphStyle new];
+                paragraphStyle.alignment = NSTextAlignmentCenter;
+                [button.titleLabel.text drawWithRect:CGRectMake(button.frame.origin.x, button.frame.origin.y+10, button.frame.size.width, button.frame.size.height)
+                                             options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingTruncatesLastVisibleLine
+                                          attributes:@{NSFontAttributeName : buttonFont, NSParagraphStyleAttributeName : paragraphStyle}
+                                             context:nil];
 #else
                 [button.titleLabel.text drawInRect:CGRectMake(button.frame.origin.x, button.frame.origin.y+10, button.frame.size.width, button.frame.size.height) withFont:buttonFont lineBreakMode:UILineBreakModeClip alignment:UITextAlignmentCenter];
 #endif
